@@ -1,0 +1,14 @@
+S,A,N,N
+S,A,S,N
+N,A,N,S
+L,M,N,S
+L,B,N,S
+L,B,S,N
+N,B,S,S
+S,M,N,N
+S,B,N,S
+L,M,N,S
+S,M,S,S
+N,M,S,S
+N,A,N,S
+L,M,S,N
