@@ -28,7 +28,7 @@ class Avion(pygame.sprite.Sprite,  threading.Thread):
 		self.posRutaActual = 0
 		self.arribo = False
 
-		self.regreso = False
+		self.recorrido = True
 
 		self.AereopuertoSalida = AereopuertoSalida
 
@@ -52,19 +52,22 @@ class Avion(pygame.sprite.Sprite,  threading.Thread):
 		return self.listaDistancia(posicion)
 
 	def siguienteCiudad(self):
-	
-		self.posRutaActual = self.posRutaActual +1
-		self.arribo = False
-
+		
+		if self.recorrido == True:
+			self.posRutaActual = self.posRutaActual +1
+			self.arribo = False
+		
 	def ruta(self):
-		if self.regreso == False:
-			if self.posRutaActual  < len(self.listaRuta):
-				if self.arribo == True:
-					self.siguienteCiudad()
-				else:
-					banderaDerecha = False
-					banderaArriba = False
 
+		if self.recorrido == True:
+			if self.arribo == True:
+				self.siguienteCiudad()
+			else:
+				
+				banderaDerecha = False
+				banderaArriba = False
+
+				if self.posRutaActual < len(self.listaCiudades):
 					posCiudad = self.listaRuta[self.posRutaActual]
 					Ciudad = self.listaCiudades[posCiudad]
 
@@ -89,34 +92,5 @@ class Avion(pygame.sprite.Sprite,  threading.Thread):
 						else:
 							self.__rect.top = self.__rect.top -2
 
-			else:
-				self.regreso= True
-		else:
-			banderaDerecha = False
-			banderaArriba = False
-
-			if self.__rect.left == self.AereopuertoSalida.obtenerPosX():
-				banderaDerecha= True
-
-			if self.__rect.top == self.AereopuertoSalida.obtenerPosY():
-				banderaArriba= True
-
-			if (banderaArriba == True ) and (banderaDerecha ==True):
-				self.arribo= True
-
-			if banderaDerecha== False:
-				if self.__rect.left < self.AereopuertoSalida.obtenerPosX():
-					self.__rect.left = self.__rect.left + 2
 				else:
-					self.__rect.left = self.__rect.left -2
-
-			if banderaArriba == False:
-				if self.__rect.top < self.AereopuertoSalida.obtenerPosY():
-					self.__rect.top = self.__rect.top +2
-				else:
-					self.__rect.top = self.__rect.top -2
-			
-
-			
-
-
+					self.recorrido = False
